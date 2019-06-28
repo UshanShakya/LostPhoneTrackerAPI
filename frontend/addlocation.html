@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="UTF-8"> 
+    <title></title>
+
+    <link rel="stylesheet" href="resources/css/bootstrap.css">
+
+</head>
+<body>
+<form  id="additemform" method="POST" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Form Name</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label">Latitude</label>
+
+            <div class="col-md-4">
+                <input id="latitude" name="latitude" type="text" placeholder="Enter Latitude" class="form-control input-md" required="">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Longitude</label>
+
+            <div class="col-md-4">
+                <input id="longitude" name="longitude" type="text" placeholder="Longitude" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">User Id</label>
+
+            <div class="col-md-4">
+                <input id="userId" name="userId" type="text" placeholder="userId" class="form-control input-md" required="">
+            </div>
+        </div>
+                
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="singlebutton"></label>
+                    <div class="col-md-4">
+                        <button id="singlebutton" name="singlebutton" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+               
+
+    </fieldset>
+    <p id="message"></p>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="custom.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "androidapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "development": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "mysql": "^2.17.1",
+    "mysql2": "^1.6.5",
+    "nodemon": "^1.19.0",
+    "npm": "^6.9.0",
+    "sequelize": "^5.8.6"
+  },
+  "devDependencies": {}
+}

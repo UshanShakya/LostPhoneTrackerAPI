@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="UTF-8"> 
+    <title></title>
+
+    <link rel="stylesheet" href="resources/css/bootstrap.css">
+
+</head>
+<body>
+<form  id="registerform" method="POST" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>Form Name</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label">First Name</label>
+
+            <div class="col-md-4">
+                <input id="userFname" name="userFname" type="text" placeholder="Enter First Name" class="form-control input-md" required="">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Last Name</label>
+
+            <div class="col-md-4">
+                <input id="userLname" name="userLname" type="text" placeholder="Enter Last Name" class="form-control input-md" required="">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Username</label>
+
+            <div class="col-md-4">
+                <input id="username" name="username" type="text" placeholder="Enter Username" class="form-control input-md" required="">
+            </div>
+        </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Password</label>
+
+                    <div class="col-md-4">
+                        <input id="password" name="password" type="password" placeholder="Enter Password" class="form-control input-md" required="">
+
+                    </div>
+                    </div>
+
+                    <!-- Password input-->
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="singlebutton"></label>
+                    <div class="col-md-4">
+                        <button id="singlebutton" name="singlebutton" class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+               
+
+    </fieldset>
+    <p id="message"></p>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="custom.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap.js"></script>
+</body>
+</html>
