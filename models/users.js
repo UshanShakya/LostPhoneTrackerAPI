@@ -27,6 +27,12 @@ const User = database.sequelize.define('User',{
         type: database.Sequelize.STRING,
         allowNull: false
     },
+
+    image: {
+        type: database.Sequelize.STRING,
+        allowNull: false
+    }
+    
 },
 {
     freezeTableName: false,

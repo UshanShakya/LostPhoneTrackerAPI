@@ -1,6 +1,6 @@
 var database = require('../database/database');
 
-const Item = database.sequelize.define('Item',{
+const Location = database.sequelize.define('Location',{
     locationId:{
         type:database.Sequelize.INTEGER,
         allowNull: false,
@@ -9,12 +9,12 @@ const Item = database.sequelize.define('Item',{
 
     },
     latitude:{
-        type: database.Sequelize.STRING,
+        type: database.Sequelize.DOUBLE,
         allowNull: false
 
     },
     longitude: {
-        type: database.Sequelize.STRING,
+        type: database.Sequelize.DOUBLE,
         allowNull: false
     },
     userId: {
@@ -28,7 +28,7 @@ const Item = database.sequelize.define('Item',{
 },
 
 );
-Item.sync({force: false})
+Location.sync({force: false})
 .then(function(result){
     console.log(result);
     //  next();

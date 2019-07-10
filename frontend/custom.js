@@ -24,8 +24,8 @@ $(document).ready(
                 data: JSON.stringify(registerData),
             
                 success : function(result, status){
-                    console.log(result);
-                    console.log(status);
+                    // console.log(result);
+                    // console.log(status);
                     $('#message').html(result.message);
                     
         
@@ -46,15 +46,14 @@ $(document).ready(
     function()
     {
     
-        $('#additemform').submit(
+        $('#addlocationform').submit(
             function(event){
                 event.preventDefault();
 
                 const registerData = {
-                    itemname : $('#itemname').val(),
-                    itemprice : $('#itemprice').val(),
-                    itemimagename : $('#itemimagename').val(),
-                    itemdescription : $('#itemdescription').val()
+                    latitude : $('#latitude').val(),
+                    longitude : $('#longitude').val(),
+                    userId : $('#userId').val()
 
                 }
                  console.log(registerData);
@@ -68,7 +67,7 @@ $(document).ready(
                 data: JSON.stringify(registerData),
             
                 success : function(result, status){
-                    console.log(result);
+                    // console.log(result);
                     $('#message').html(result.message);
                     
         
@@ -104,11 +103,19 @@ $(document).ready(
                 url:'http://localhost:3001/v1/login',
                 method:'POST',
                 contentType:'application/json',
+                headers:{'authorization' :'Bearer '+window.localStorage.getItem('token')},
                 data: JSON.stringify(registerData),
             
                 success : function(result, status){
                     console.log(result);
-                    console.log(status);
+                    // console.log(status);
+                    window.localStorage.setItem('id',result.id);
+                    window.localStorage.setItem('token',result.token);
+                    window.localStorage.setItem('firstname',result.result.userFname);
+                    window.localStorage.setItem('lastname',result.result.userLname);
+                    window.localStorage.setItem('username',result.result.username);
+
+
                     $('#message').html(result.message);
                     
         

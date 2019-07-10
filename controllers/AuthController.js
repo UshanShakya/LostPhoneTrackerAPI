@@ -1,39 +1,178 @@
-var userModel = require('../models/users');
+var userModel = require('../models/users')
+
 var bcrypt = require('bcrypt');
+ var jwt = require('jsonwebtoken');
 
-function verify (req,res,next){
-	userModel.User.findOne({
-		where:{username : req.body.username}
-	})
-	.then(function(result){
-		// store the user's hash password obtained from database in a variable and pass it through req object
-req.userHashPassword = result.dataValues.password
-	next();
+function verify(req,res,next){
+    userModel.User.findOne({
+        where:{username:req.body.username}
+    })
 
-	})
-	//display error if username is not found database
-	.catch(function(err){
-next({"status":400 , "message": "please register first"})
+        .then(function(result){
+            if(result != null){
+                next();
+            }else{
+                next({"status":500,"message":"Please Register to login"});
+            }
+        })
+        .catch(function(err){
 
-	})
+            next({"status":500 ,"message":err});
+        })
 }
 
-	function check(req,res,next){
- // comapre's first parameter password obtained from login form i.e. req.body.password
- // second parameter the value passed from previous function (from database) through req object
-bcrypt.compare(req.body.password,req.userHashPassword)
-.then(function(result){
-	next();
- 
-})
-.catch(function(err){
-	next({"status":400, "message" : "Password Doesnot match"})
-})
+
+function check(req,res,next){
+    userModel.User.findOne({
+        where: {username:req.body.username}
+    })
+
+        .then(function(result){
+
+            if(result != null){
+
+                bcrypt.compare(req.body.password, result.dataValues.password, function(err, res) {
+
+
+                    if(res) {
+
+                        // next({"status":200,"message":"Valid User Login."});
+                        next();
+
+                    }
+
+                    else {
+                        next({"status":500,"message":"Credential didn't match."});
+                    }
+                });
+                // res.json(result);
+            }else{
+                next({"status":500,"message":"Credential didn't match."});
+            }
+
+        })
+        .catch(function(err){
+            next({"status":500, "message":"Error Occured"});
+        })
+}
+
+
+
+function jwtTokenGen(req, res, next) {
+
+    jwt.sign({
+            username: req.body.username,
+            accessLevel: 'superadmin'
+        }, 'thisissecretkey', {
+            expiresIn: "10h"
+        },
+
+        function(err, token) {
+            if(err != null || undefined ){
+                console.log(err);
+                next({"status":401, "message":"Unauthorized token"})
+            }
+            else{
+                req.genToken=token;
+                console.log(token)
+                next();
+
+            }
+
+        }
+    )
+
+}
+
+function tokenVerify(req,res,next){
+
+    console.log(req.headers)
+
+    if(req.headers.authorization ==  undefined){
+
+        next({status:500,message:'no authorization header present'})
+
+    }
+    else{
+
+        let token = req.headers.authorization.slice(7,req.headers.authorization.length)
+
+        jwt.verify(token,'thisissecretkey',function(err,decoded){
+            console.log(decoded);
+            if(err !=null){
+                next({status:500,message:err.message})
+                console.log(err);
+            }
+            else{
+                next();
+            }
+        })
+
+    }
+}
+
+function sendUserData(req,res,next) {
+
+    userModel.User.findOne({
+        where:{username:req.body.username}
+    })
+
+        .then(function(result){
+            if(result != null){
+                // res.json(result)
+                res.send(
+                    {
+                        "message": "Login success",
+                        "token": req.genToken,
+                        "userId":result.userId,
+                        "username":result.username,
+                        "firstname":result.userFname,
+                        "lastname":result.userLname,
+                        "image":result.image,
+                        
+                    }
+                );
+            }
+        })
+        .catch(function(err){
+
+            next({"status":500 ,"message":err});
+        })
+}
+
+
+function tokenVerify(req,res,next){
+
+    console.log(req.headers)
+
+    if(req.headers.authorization ==  undefined){
+
+        next({status:500,message:'no authorization header present'})
+
+    }
+    else{
+
+        let token = req.headers.authorization.slice(7,req.headers.authorization.length)
+
+        jwt.verify(token,'thisissecretkey',function(err,decoded){
+            console.log(decoded);
+            if(err !=null){
+                next({status:500,message:err.message})
+                console.log(err);
+            }
+            else{
+                next();
+            }
+        })
+
+    }
 }
 
 
 module.exports ={
-
     verify,
-    check
+    check,
+    jwtTokenGen,
+    tokenVerify,
+    sendUserData
 }
